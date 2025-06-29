@@ -1,0 +1,56 @@
+{% extends "admin/change_list.html" %}
+{% block content %}
+    <div>
+        <h2>Peringkat Pemain</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Poin</th>
+                    <th>Peringkat</th>
+                    <th>Perubahan Peringkat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.points }}</td>
+                        <td>{{ player.rank }}</td>
+                        <td>{{ player.rank_change }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h3>Riwayat Perubahan Peringkat dan Poin</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Pemain</th>
+                    <th>Poin Sebelum</th>
+                    <th>Poin Setelah</th>
+                    <th>Peringkat Sebelum</th>
+                    <th>Peringkat Setelah</th>
+                    <th>Waktu Perubahan</th>
+                    <th>Admin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for history in ranking_history %}
+                    <tr>
+                        <td>{{ history.player.name }}</td>
+                        <td>{{ history.points_before }}</td>
+                        <td>{{ history.points_after }}</td>
+                        <td>{{ history.rank_before }}</td>
+                        <td>{{ history.rank_after }}</td>
+                        <td>{{ history.changed_at }}</td>
+                        <td>{{ history.changed_by.username }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,142 @@
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - Ping Pong Community</title>
+        <link rel="icon" href="{% static 'website/images/icon.jpg' %}">
+        <link rel="preload" href="{% static 'website/images/table-tennis-bg.jpg' %}" as="image" type="image/jpeg">
+        <link rel="stylesheet" href="{% static 'website/style.css' %}">
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="logo">Ping Pong Community</div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Schedule</a>
+                        <div class="dropdown-content">
+                            <a href="{% url 'tournament_schedule' %}">Tournament Schedule</a>
+                            <a href="{% url 'training_schedule' %}">Training Schedule</a>
+                        </div>
+                    </li>
+                    <li><a href="{% url 'ranking' %}">Ranking</a></li>
+                    <li><a href="{% url 'documentation' %}">Documentation</a></li>
+                    <li><a href="{% url 'forum' %}">Forum</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'upload' %}">Upload</a></li>
+                        
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        
+        {% if user.is_authenticated %}
+        <div class="profile">
+            <span>Hi, {{ user.username }}</span>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>  
+        </div>
+        {% endif %}
+
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Visi -->
+            <section id="announcement" class="fade-in">
+                {% if announcement  %}
+                  <h1>{{ announcement.title}}</h1>
+                  <p>{{ announcement.message}}</p>
+                {% else %}
+                  <p>Tidak ada pengumuman</p>
+                {% endif %}
+
+            </section>
+            <section id="visi" class="fade-in">
+                <h1>Visi</h1>
+                <p>Menjadi komunitas ping pong terdepan dalam mengembangkan olahraga tenis meja di tingkat lokal dan nasional.</p>
+            </section>
+            
+            <section id="misi" class="fade-in">
+                <h1>Misi</h1>
+                <ul>
+                    <li>Meningkatkan minat masyarakat terhadap olahraga tenis meja.</li>
+                    <li>Menyelenggarakan pelatihan rutin untuk anggota komunitas.</li>
+                    <li>Membuka kompetisi berkala untuk mengasah kemampuan anggota.</li>
+                    <li>Membangun jaringan komunitas tenis meja di berbagai daerah.</li>
+                </ul>
+            </section>            
+
+            <!-- Pengurus -->
+            <section id="pengurus" class="fade-in">
+                <h1>Pengurus</h1>
+                <ul>
+                    <li><b>Ketua:</b> Steven Alberto</li>
+                    <li><b>Wakil Ketua:</b> Nathaniel</li>
+                    <li><b>Sekretaris:</b> Candra</li>  
+                    <li><b>Bendahara:</b> Gojo Satoru</li>
+                    <li><b>Koordinator Latihan:</b> Uzumaki Naruto</li>
+                </ul>
+            </section>
+
+            <!-- Jadwal Latihan Umum -->
+            <section id="jadwal-latihan" class="fade-in">
+                <h1>Jadwal Latihan Umum</h1>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Hari</th>
+                            <th>Jam</th>
+                            <th>Tempat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Senin - Jumat</td>
+                            <td>16:00 - 18:00</td>
+                            <td>UWIKA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <p>Ping Pong Community bertujuan untuk membangun hubungan yang baik antar anggota.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Our Training Location</h4>
+                    <div class="maps-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.156287455074!2d112.7920167!3d-7.260711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9f6cec3c03d%3A0xf8798c0f7c0b11f5!2sUniversitas%20Widya%20Kartika!5e0!3m2!1sen!2sid!4v1695235297654!5m2!1sen!2sid" 
+                            width="100%" 
+                            height="200" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: <a href="mailto:info@pingpongcommunity.com">info@pingpongcommunity.com</a></p>
+                    <p>Instagram: <a href="https://instagram.com/pingpongcommunity" target="_blank">@pingpongcommunity</a></p>
+                    <p>Facebook: <a href="https://facebook.com/pingpongcommunity" target="_blank">Ping Pong Community</a></p>
+                    <p>Phone: +62 813-3423-8083</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ping Pong Community. All rights reserved.</p>
+            </div>
+        </footer>
+        
+        <script src="{% static 'website/script.js' %}"></script>
+    </body>
+    </html>

@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Ping Pong Community</title>
+    <link rel="icon" href="{% static 'website/images/icon.jpg' %}">
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="profile">
+            <span>Hi, {{ user.username }}</span>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Profile Section -->
+    <main class="container">
+        <h1>Profile of {{ user.username }}</h1>
+        
+        {% if edit %}
+        <!-- Form untuk mengedit profil -->
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+        {% else %}
+        <!-- Tampilkan detail profil -->
+        <p><b>Username:</b> {{ user.username }}</p>
+        <p><b>Email:</b> {{ user.email }}</p>
+        <p><b>Nama Depan:</b> {{ user.first_name }}</p>
+        <p><b>Nama Belakang:</b> {{ user.last_name }}</p>
+        <p><b>Alamat:</b> {{ user.profile.address }}</p>
+        <p><b>Nomor Telepon:</b> {{ user.profile.phone_number }}</p>
+        <p><b>Tinggi Badan:</b> {{ user.profile.height }} cm</p>
+        <p><b>Berat Badan:</b> {{ user.profile.weight }} kg</p>
+        <a href="{% url 'profile' %}?edit=true" class="btn btn-primary">Edit Profile</a>
+        {% endif %}
+    </main>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Ping Pong Community bertujuan untuk membangun hubungan yang baik antar anggota.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'tournament_schedule' %}">Tournament Schedule</a></li>
+                    <li><a href="{% url 'training_schedule' %}">Training Schedule</a></li>
+                    <li><a href="{% url 'ranking' %}">Leaderboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:info@pingpongcommunity.com">info@pingpongcommunity.com</a></p>
+                <p>Instagram: <a href="https://instagram.com/pingpongcommunity" target="_blank">@pingpongcommunity</a></p>
+                <p>Facebook: <a href="https://facebook.com/pingpongcommunity" target="_blank">Ping Pong Community</a></p>
+                <p>Phone: +62 813-3423-8083</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ping Pong Community. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - Ping Pong Community</title>
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Ping Pong Community</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="ranking.html">Ranking</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="forum.html">Forum</a></li>
+                <li><a href="login.html">Login</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'upload' %}">Upload</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Profil User di Pojok Kanan Atas -->
+    {% if user.is_authenticated %}
+    <div class="profile">
+        <span>Hi, {{ user.username }}</span>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>  
+    </div>
+    {% endif %}
+
+    <!-- Schedule Section -->
+    <section id="schedule">
+        <h1>Schedule</h1>
+
+        <!-- Tournament Schedule Table -->
+        <h2>Tournament Schedule</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>January 15, 2024</td>
+                    <td>National Tournament</td>
+                    <td>City Arena</td>
+                </tr>
+                <tr>
+                    <td>February 10, 2024</td>
+                    <td>Regional Championship</td>
+                    <td>State Sports Complex</td>
+                </tr>
+                <tr>
+                    <td>March 5, 2024</td>
+                    <td>Invitational Event</td>
+                    <td>International Stadium</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Training Schedule Table -->
+        <h2>Training Schedule</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Type</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monday</td>
+                    <td>Beginner's Training</td>
+                    <td>10:00 AM - 12:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>Advanced Training</td>
+                    <td>1:00 PM - 3:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>Open Practice</td>
+                    <td>4:00 PM - 6:00 PM</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Ping Pong Community bertujuan untuk membangun hubungan yang baik antar anggota.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Our Training Location</h4>
+                <div class="maps-container">
+                    <!-- Embed Google Maps -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.156287455074!2d112.7920167!3d-7.260711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f9f6cec3c03d%3A0xf8798c0f7c0b11f5!2sUniversitas%20Widya%20Kartika!5e0!3m2!1sen!2sid!4v1695235297654!5m2!1sen!2sid" 
+                        width="100%" 
+                        height="200" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:info@pingpongcommunity.com">info@pingpongcommunity.com</a></p>
+                <p>Instagram: <a href="https://instagram.com/pingpongcommunity" target="_blank">@pingpongcommunity</a></p>
+                <p>Facebook: <a href="https://facebook.com/pingpongcommunity" target="_blank">Ping Pong Community</a></p>
+                <p>Phone: +62 813-3423-8083</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ping Pong Community. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

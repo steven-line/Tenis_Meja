@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Gambar</title>
+    <link rel="icon" href="{% static 'website/images/icon.jpg' %}">
+    <link rel="preload" href="{% static 'website/images/table-tennis-bg.jpg' %}" as="image" type="image/jpeg">
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+    <style>
+        /* Tambahan CSS untuk preview filter */
+        .filter-preview {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .filter-option {
+            cursor: pointer;
+            text-align: center;
+        }
+        .filter-option img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+        .filter-option.active img {
+            border-color: #4CAF50;
+        }
+        .filter-option p {
+            margin: 5px 0 0;
+            font-size: 12px;
+        }
+        .filter-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .filter-section h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (tetap sama) -->
+    <header>
+        <div class="logo">Ping Pong Community</div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Schedule</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'tournament_schedule' %}">Tournament Schedule</a>
+                        <a href="{% url 'training_schedule' %}">Training Schedule</a>
+                    </div>
+                </li>
+                <li><a href="{% url 'ranking' %}">Ranking</a></li>
+                <li><a href="{% url 'documentation' %}">Documentation</a></li>
+                <li><a href="{% url 'forum' %}">Forum</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'upload' %}">Upload</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% if user.is_authenticated %}
+    <div class="profile">
+        <span>Hi, {{ user.username }}</span>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    {% endif %}
+
+    <main class="container fade-in">
+        <h1>Upload Gambar</h1>
+        
+        <form action="{% url 'upload_image' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.errors or error %}
+                <div class="error-messages">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% if error %}
+                        <p>{{ error }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        
+            <div id="upload-container">
+                <div class="upload-item">
+                    <label for="{{ form.image_title.id_for_label }}">Judul Gambar:</label>
+                    {{ form.image_title }}
+                    
+                    <label for="{{ form.description.id_for_label }}">Deskripsi Gambar:</label>
+                    {{ form.description }}
+                    
+                    <label for="{{ form.image_file.id_for_label }}">Pilih Gambar:</label>
+                    {{ form.image_file }}
+
+                    <!-- Tambahkan bagian filter di sini -->
+                    <div class="filter-section">
+                        <h3>Pilih Filter Gambar</h3>
+                        <div class="filter-preview">
+                            <div class="filter-option" data-filter="none">
+                                <img src="{% static 'website/images/filter-none.jpg' %}" alt="No Filter">
+                                <p>Tidak Ada Filter</p>
+                            </div>
+                            <div class="filter-option" data-filter="blur">
+                                <img src="{% static 'website/images/filter-blur.jpg' %}" alt="Blur">
+                                <p>Blur</p>
+                            </div>
+                            <div class="filter-option" data-filter="grayscale">
+                                <img src="{% static 'website/images/filter-bw.jpg' %}" alt="Black & White">
+                                <p>Hitam-Putih</p>
+                            </div>
+                            <div class="filter-option" data-filter="brightness">
+                                <img src="{% static 'website/images/filter-bright.jpg' %}" alt="Brightness">
+                                <p>Lebih Terang</p>
+                            </div>
+                            <div class="filter-option" data-filter="contrast">
+                                <img src="{% static 'website/images/filter-contrast.jpg' %}" alt="Contrast">
+                                <p>Kontras Tinggi</p>
+                            </div>
+                        </div>
+                        <input type="hidden" name="filter_type" id="selected-filter" value="none">
+                    </div>
+                </div>
+            </div>
+        
+            <button type="button" id="add-more" class="btn-secondary">Tambah Gambar</button>
+            <button type="submit" class="btn-upload">Upload</button>
+        </form>
+    </main>
+
+    <!-- Footer (tetap sama) -->
+    <footer class="main-footer">
+        <!-- ... isi footer tetap ... -->
+    </footer>    
+
+    <script src="{% static 'website/script.js' %}"></script>
+    <script>
+        // Script untuk memilih filter
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterOptions = document.querySelectorAll('.filter-option');
+            const selectedFilter = document.getElementById('selected-filter');
+            
+            filterOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Hapus class active dari semua option
+                    filterOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Tambah class active ke option yang dipilih
+                    this.classList.add('active');
+                    
+                    // Set nilai filter yang dipilih
+                    selectedFilter.value = this.dataset.filter;
+                });
+            });
+            
+            // Default pilih "No Filter"
+            document.querySelector('.filter-option[data-filter="none"]').classList.add('active');
+        });
+    </script>
+</body>
+</html>

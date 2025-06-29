@@ -1,0 +1,24 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+    <h1>Tambah Poin untuk Pemain</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="points_to_add">Poin yang Ingin Ditambahkan:</label>
+            <input type="number" name="points_to_add" min="1" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Tambah Poin</button>
+        </div>
+    </form>
+
+    <h2>Pemain yang Dipilih:</h2>
+    <ul>
+        {% for player in queryset %}
+            <li>{{ player.name }} - {{ player.points }} Poin</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

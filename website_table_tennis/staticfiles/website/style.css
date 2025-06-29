@@ -1,0 +1,787 @@
+    /* Menggunakan font Google untuk tampilan modern */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    /* Reset dan dasar styling */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Fade-in Effect */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px); /* Sedikit pergerakan ke bawah */
+        animation: fadeIn 0.8s ease-out forwards; /* Animasi berlangsung selama 0.8 detik */
+    }
+
+    /* Keyframes untuk fade-in */
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+    /* Pastikan elemen di halaman lain tidak tertutup dropdown */
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    /* Body - Background dan font */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f4f7f6; /* Background soft */
+        color: #333;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+    }
+
+        /* Jadwal Table */
+    .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: linear-gradient(to bottom, #f7f9fc, #e3ebf0); /* Gradasi warna lembut */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+        border-radius: 10px; /* Sudut membulat */
+        overflow: hidden;
+    }
+
+    .schedule-table th, .schedule-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+    
+    .schedule-table th {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 15px;
+    }
+
+    .schedule-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .schedule-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .schedule-table tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
+
+    /* Header dengan Latar Belakang Gambar */
+    header {
+        position: relative; /* Pastikan elemen anak seperti dropdown tidak terpengaruh */
+        z-index: 0; /* Atur z-index lebih rendah untuk header */
+        background: url('images/table-tennis-bg.jpg') no-repeat center/cover; /* Gambar latar belakang */
+        color: white;
+        padding: 40px 0; /* Jarak vertikal lebih besar */
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Logo (Judul Website) */
+    .logo {
+        font-size: 36px; /* Ukuran teks besar */
+        font-weight: bold;
+        margin-bottom: 20px; /* Jarak antara judul dan menu navigasi */
+        text-transform: uppercase;
+        letter-spacing: 2px; /* Jarak antar huruf */
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Efek bayangan pada teks */
+    }
+
+    /* Menghapus bullet point pada list */
+    ul {
+        list-style-type: none; /* Menghapus bullet point */
+        padding-left: 0; /* Menghilangkan jarak kiri default */
+    }
+
+    li {
+        margin: 10px 0; /* Menambahkan jarak antar item dalam list */
+    }
+
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        margin: 0;
+        padding: 15px 0;
+    }
+
+    nav ul li {
+        margin: 0 15px;
+    }
+
+    nav ul li a {
+        padding: 12px 20px;
+        text-decoration: none;
+        color: white;
+        background-color: rgba(63, 81, 181, 0.8); /* Warna tombol semi-transparan */
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    nav ul li a:hover {
+        background-color: rgba(30, 136, 229, 0.8);
+        transform: scale(1.1);
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+        position: relative; /* Agar dropdown-content dapat diposisikan secara absolut */
+    }
+
+    .dropdown-content {
+        display: none; /* Sembunyikan dropdown secara default */
+        position: absolute; /* Posisi absolut relatif terhadap elemen induk */
+        background-color: rgba(63, 81, 181, 0.9); /* Warna latar belakang dropdown */
+        min-width: 200px; /* Lebar minimum dropdown */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk dropdown */
+        z-index: 1000; /* Pastikan dropdown berada di atas elemen lain */
+        border-radius: 5px; /* Membuat sudut melengkung */
+    }
+
+    .dropdown-content a {
+        display: block; /* Tampilkan elemen dalam bentuk blok */
+        padding: 10px 15px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+        background-color: rgba(30, 136, 229, 0.9); /* Warna hover */
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block; /* Tampilkan dropdown saat mouse diarahkan */
+    }
+
+    /* Efek hover untuk setiap section */
+    main .fade-in {
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi transisi */
+        background: #f9f9f9; /* Warna latar default */
+        color: black; /* Warna teks hitam */
+    }
+
+    /* Warna teks untuk elemen dalam fade-in */
+    main .fade-in h1,
+    main .fade-in p,
+    main .fade-in li {
+        color: black;
+    }
+
+    /* Efek hover */
+    main .fade-in:hover {
+        transform: scale(1.05); /* Membesar sedikit */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar */
+    }
+
+    /* Styling untuk setiap bagian */
+    main #visi {
+        background: linear-gradient(to bottom, #f9f9f9, #e9ecef); /* Warna gradien */
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    main #misi {
+        background: linear-gradient(to right, #f9f9f9, #e9ecef); /* Warna gradien */
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    main #pengurus {
+        background: url('{% static "website/images/team-bg.jpg" %}') no-repeat center/cover; /* Background gambar */
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    main #jadwal-latihan {
+        background: linear-gradient(to bottom, #f9f9f9, #e9ecef); /* Gradien lembut */
+        color: #333;
+    }
+
+    /* Styling tambahan untuk judul di setiap bagian */
+    main .fade-in h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        position: relative;
+    }
+
+    main .fade-in h1::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: #4CAF50;
+        margin: 10px auto 0;
+        border-radius: 2px;
+    }
+
+    /* Tabel untuk Jadwal Latihan */
+    main #jadwal-latihan table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    main #jadwal-latihan table th {
+        background: linear-gradient(to right, #4CAF50, #81C784);
+        color: white;
+        font-weight: bold;
+        padding: 15px;
+    }
+
+    main #jadwal-latihan table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+
+    /* Section Utama */
+    section {
+        padding: 40px 20px;
+        text-align: center;
+        background: linear-gradient(to bottom, #f9f9f9, #e9ecef); /* Gradasi lembut */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* Memberikan jarak antar section */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Menambahkan transisi */
+    }
+
+    /* Efek hover */
+    .section:hover {
+        transform: translateY(-10px); /* Mengangkat elemen ke atas */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Menambah bayangan */
+    }
+
+    h1, h2 {
+        font-weight: bold;
+        color: #333;
+    }
+
+
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    /* Documentation Section */
+    main {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .documentation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsif */
+        gap: 20px;
+        justify-items: center;
+        align-items: start;
+    }
+
+        /* Documentation Section */
+    .documentation-item {
+        text-align: center;
+        border-radius: 15px; /* Sudut membulat */
+        padding: 20px;
+        background: linear-gradient(to bottom right, #fff, #f0f8ff); /* Gradasi biru lembut */
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan lebih tajam */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .documentation-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .documentation-item .date {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    /* Efek Fade-in untuk gambar di dokumentasi */
+    .documentation-item img {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;  /* Durasi efek fade-in */
+    }
+
+    /* Ketika gambar muncul pada tampilan */
+    .documentation-item.visible img {
+        opacity: 1;
+    }
+
+    button {
+        background: #2196f3;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #3f51b5; /* Warna hover */
+    }
+
+    textarea {
+        width: 100%;
+        height: 150px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 20px;
+        resize: vertical;
+        font-size: 1rem;
+    }
+
+    /* Menjamin bahwa .message akan mengikuti lebar kontainer induknya */
+    #forumMessages .message {
+        background: linear-gradient(to right, #f9f9f9, #ffffff); /* Gradasi abu-abu ke putih */
+        width: 100%;  /* Menjamin lebar mengikuti kontainer induk */
+        box-sizing: border-box;  /* Memastikan padding dan margin tidak menambah lebar */
+        display: block;  /* Menjaga pesan tampil sebagai blok untuk memudahkan pembungkusan */
+    }
+
+    /* Pembungkusan teks di dalam pesan */
+    .message p {
+        word-wrap: break-word;  /* Memecah kata yang panjang */
+        word-break: break-word;  /* Memastikan kata panjang terpotong dan dibungkus */
+        white-space: normal;  /* Menjaga spasi dan pemisah baris standar */
+        overflow-wrap: break-word;  /* Memastikan teks yang panjang terpotong dan dibungkus */
+        max-width: 100%;  /* Menjaga pesan agar tidak melebar */
+        padding: 0 10px;  /* Menambah padding sedikit agar teks tidak terlalu rapat dengan batas */
+        margin: 0;  /* Pastikan margin tidak mempengaruhi pembungkusan */
+    }
+
+    /* Optional: Jika ingin mengatur margin pada pesan untuk sedikit jarak antar pesan */
+    .message {
+        margin-bottom: 20px;  /* Memberikan jarak antar pesan */
+    }
+
+
+    .btn-submit {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background-color: #0056b3;
+    }
+
+    /* Leaderboard Table */
+table.leaderboard {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: linear-gradient(to bottom, #ffffff, #f0f4f7);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    }
+
+    /* Header Style */
+    table.leaderboard th {
+        background: linear-gradient(to right, #3c8dbc, #5dade2); /* Warna gradasi untuk header */
+        color: white;
+        font-weight: bold;
+        padding: 15px;
+        text-align: left;
+        text-transform: uppercase;
+        border-bottom: 3px solid #2a6f96;
+    }
+
+    /* Data Row Style */
+    table.leaderboard td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+        color: #333;
+    }
+
+    /* Highlight Every Other Row */
+    table.leaderboard tr:nth-child(even) {
+        background-color: #eaf2f8; /* Warna biru muda untuk baris genap */
+    }
+
+    table.leaderboard tr:nth-child(odd) {
+        background-color: #ffffff; /* Warna putih untuk baris ganjil */
+    }
+
+    /* Hover Effect */
+    table.leaderboard tr:hover {
+        background-color: #d4e6f1; /* Warna biru lebih cerah saat hover */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .details-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        color: #fff;
+        background: linear-gradient(to right, #4CAF50, #66bb6a); /* Gradasi hijau */
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .details-btn:hover {
+        background: linear-gradient(to right, #388E3C, #43a047); /* Gradasi hijau lebih gelap */
+        transform: scale(1.05); /* Efek zoom */
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }    
+    
+            /* Footer */
+    .main-footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-section {
+        flex: 1;
+        margin: 10px;
+        min-width: 200px;
+    }
+
+    .footer-section h4 {
+        color: #81C784;
+        margin-bottom: 10px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+        color: #ddd;
+        text-decoration: none;
+    }
+
+    .footer-section a:hover {
+        color: #fff;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        background-color: #222;
+        padding: 10px 0;
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    /* Form Upload */
+    form {
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        background: linear-gradient(to bottom, #e6f7ff, #ffffff); /* Gradasi biru ke putih */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form .form-group {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    form input[type="text"],
+    form input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box; /* Pastikan padding dan border dimasukkan dalam lebar */
+    }
+
+    form button.btn-upload {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form button.btn-upload:hover {
+        background-color: #0056b3;
+    }
+
+    /* Form Login */
+    .login-form input[type="text"], 
+    .login-form input[type="password"] {
+        width: 100%;
+        padding: 10px 15px;  /* Padding lebih besar */
+        font-size: 1rem;  /* Ukuran font */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Tombol Submit Login */
+    .login-form button {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1.1em;
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .login-form button:hover {
+        background-color: #1976d2; /* Warna hover tombol */
+    }
+
+    /* Gaya untuk tombol Join Tournament */
+.btn-join {
+    display: inline-block;
+    background-color: #007bff; /* Warna biru */
+    color: white; /* Warna teks */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px; /* Spasi dalam */
+    border: none; /* Tanpa border */
+    border-radius: 8px; /* Sudut melengkung */
+    cursor: pointer; /* Kursor tangan saat hover */
+    text-align: center;
+    text-decoration: none; /* Hilangkan garis bawah */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan kotak */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animasi */
+    }
+
+    /* Efek hover untuk tombol */
+    .btn-join:hover {
+        background-color: #0056b3; /* Warna biru lebih gelap */
+        transform: translateY(-3px); /* Sedikit naik */
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Bayangan lebih besar */
+    }
+
+    /* Efek fokus untuk tombol */
+    .btn-join:focus {
+        outline: 2px solid #0056b3; /* Outline fokus */
+        outline-offset: 2px;
+    }
+
+    /* Gaya untuk tombol saat diklik */
+    .btn-join:active {
+        background-color: #004085; /* Warna lebih gelap saat diklik */
+        transform: translateY(1px); /* Sedikit turun */
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.1); /* Bayangan lebih kecil */
+    }
+
+        /* Gaya untuk pesan sukses */
+    .alert {
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    /* Profil User di pojok kanan atas */
+    .profile {
+        position: fixed; /* Pastikan posisi tetap saat scroll */
+        top: 20px; /* Jarak dari atas halaman */
+        right: 20px; /* Jarak dari kanan halaman */
+        background-color: rgba(0, 0, 0, 0.6); /* Warna latar belakang semi-transparan */
+        color: white; /* Teks berwarna putih */
+        padding: 10px 20px; /* Ruang di sekitar konten profil */
+        border-radius: 30px; /* Sudut yang melengkung */
+        font-size: 16px; /* Ukuran font */
+        z-index: 1000; /* Agar elemen ini selalu di atas konten lainnya */
+        display: flex; /* Untuk penataan elemen di dalamnya */
+        align-items: center; /* Pusatkan elemen vertikal */
+        justify-content: center; /* Pusatkan elemen horizontal */
+    }
+
+    .rank-change-up {
+        color: green;
+        font-weight: bold;
+    }
+    
+    .rank-change-down {
+        color: red;
+        font-weight: bold;
+    }
+    
+    .rank-change-up, .rank-change-down {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    
+    .profile a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .profile:hover {
+        background-color: rgba(0, 0, 0, 0.8); /* Warna latar belakang saat hover */
+    }
+
+        /* Styling untuk tabel history */
+    .ranking-history {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .ranking-history thead {
+        background-color: #009879;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .ranking-history th, .ranking-history td {
+        border: 1px solid #dddddd;
+        padding: 10px 12px;
+    }
+
+    .ranking-history tbody tr:nth-child(even) {
+        background-color: #f3f3f3; /* Garis warna abu-abu untuk baris genap */
+    }
+
+    .ranking-history tbody tr:hover {
+        background-color: #f1f1f1; /* Efek hover */
+    }
+
+    .ranking-history td {
+        color: #333;
+    }
+
+    .maps-container iframe {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }    
+
+    .message-image {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    .posted-image {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    /* Responsiveness */
+    @media (max-width: 768px) {
+
+        .container {
+            width: 90%;
+        }
+    
+        nav ul li {
+            display: block;
+            margin: 10px 0;
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            flex-direction: column;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+
